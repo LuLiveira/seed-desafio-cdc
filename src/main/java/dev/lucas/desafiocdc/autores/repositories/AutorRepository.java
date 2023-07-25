@@ -6,6 +6,5 @@ import org.springframework.stereotype.Repository;
 import dev.lucas.desafiocdc.autores.domain.Autor;
 
 @Repository
-public interface AutorRepository extends CrudRepository<Autor, Long> {
-    
+public interface AutorRepository extends CrudRepository<Autor, Long> {  
 }

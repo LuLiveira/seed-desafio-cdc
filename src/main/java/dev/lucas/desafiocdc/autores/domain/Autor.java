@@ -3,7 +3,6 @@ package dev.lucas.desafiocdc.autores.domain;
 import java.time.Instant;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,13 +15,12 @@ public class Autor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Embedded
-    private Nome nome;
+    // @Embedded
+    private String nome;
 
-    @Embedded
-    private Email email;
+    // @Embedded
+    private String email;
 
-    @Column
     private String descricao;
 
     private Instant momento;
@@ -31,7 +29,7 @@ public class Autor {
         return descricao;
     }
 
-    public Email getEmail() {
+    public String getEmail() {
         return email;
     }
 
@@ -39,13 +37,13 @@ public class Autor {
         return momento;
     }
 
-    public Nome getNome() {
+    public String getNome() {
         return nome;
     }
 
     public Autor(){}
 
-    private Autor(Nome nome, Email email, String descricao){
+    private Autor(String nome, String email, String descricao){
         this.nome = nome;
         this.email = email;
         this.descricao = descricao;
@@ -53,9 +51,6 @@ public class Autor {
     }
 
     public static Autor of (String nome, String email, String descricao) {
-        var nomeVo = Nome.of(nome);
-        var emailVo = Email.of(email);
-
-        return new Autor(nomeVo, emailVo, descricao);
+        return new Autor(nome, email, descricao);
     }
 }

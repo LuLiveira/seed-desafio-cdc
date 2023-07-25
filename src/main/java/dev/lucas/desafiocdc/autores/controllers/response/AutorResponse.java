@@ -7,8 +7,8 @@ import dev.lucas.desafiocdc.autores.domain.Autor;
 public record AutorResponse(String nome, String email, String descricao, Instant momento) {
 
     public static AutorResponse fromAutor(Autor novoAutor) {
-        return new AutorResponse(novoAutor.getNome().getNome(), 
-        novoAutor.getEmail().getEmail(),
+        return new AutorResponse(novoAutor.getNome(), 
+        novoAutor.getEmail(),
         novoAutor.getDescricao(), 
         novoAutor.getMomento());
     }
