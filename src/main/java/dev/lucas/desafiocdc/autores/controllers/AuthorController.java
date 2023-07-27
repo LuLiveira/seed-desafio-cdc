@@ -9,21 +9,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 import dev.lucas.desafiocdc.autores.controllers.request.AuthorRequest;
 import dev.lucas.desafiocdc.autores.controllers.response.AuthorResponse;
-import dev.lucas.desafiocdc.autores.services.AuthorService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/authors")
 public class AuthorController {
 
-    @Autowired
-    private AuthorService service;
+    @PersistenceContext //Verificar o que faz essa anotação
+    private EntityManager manager;
 
+    @Transactional
     @PostMapping("/new")
     public ResponseEntity<AuthorResponse> create(@Valid @RequestBody AuthorRequest request){
         var author = request.toAuthor();
-        var newAuthor = service.create(author);
-        var response = AuthorResponse.fromAuthor(newAuthor);
+        manager.persist(author);
+        var response = AuthorResponse.fromAuthor(author);
 
         return ResponseEntity.ok(response);
     }
