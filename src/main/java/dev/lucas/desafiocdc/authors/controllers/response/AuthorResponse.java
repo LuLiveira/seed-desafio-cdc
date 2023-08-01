@@ -1,8 +1,8 @@
-package dev.lucas.desafiocdc.autores.controllers.response;
+package dev.lucas.desafiocdc.authors.controllers.response;
 
 import java.time.Instant;
 
-import dev.lucas.desafiocdc.autores.domain.Author;
+import dev.lucas.desafiocdc.authors.domain.Author;
 
 public record AuthorResponse(String name, String email, String description, Instant instant) {
 

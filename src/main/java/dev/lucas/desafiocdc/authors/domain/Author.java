@@ -1,4 +1,4 @@
-package dev.lucas.desafiocdc.autores.domain;
+package dev.lucas.desafiocdc.authors.domain;
 
 import java.time.Instant;
 
@@ -40,6 +40,7 @@ public class Author {
         return name;
     }
 
+    @Deprecated
     public Author(){}
 
     private Author(String name, String email, String description){
