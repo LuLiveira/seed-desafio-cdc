@@ -11,6 +11,7 @@ import dev.lucas.desafiocdc.authors.controllers.request.AuthorRequest;
 import dev.lucas.desafiocdc.authors.domain.Author;
 
 @Component
+@Deprecated
 public class DuplicatedAuthorEmailValidator implements Validator {
 
     @Autowired

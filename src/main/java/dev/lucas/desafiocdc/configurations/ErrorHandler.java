@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -15,14 +16,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class ValidationErrorHandler {
+public class ErrorHandler {
 
     @Autowired
     private MessageSource messageSource;
 
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ValidationErrorResponse methodArgumentNotValidExceptionHandle(MethodArgumentNotValidException exception) {
+    public ErrorResponse methodArgumentNotValidExceptionHandle(MethodArgumentNotValidException exception) {
         List<ObjectError> globalErrors = exception.getBindingResult().getGlobalErrors();
         List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
 
@@ -31,16 +32,22 @@ public class ValidationErrorHandler {
 
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BindException.class)
-    public ValidationErrorResponse bindExceptionHandle(BindException exception) {
+    public ErrorResponse bindExceptionHandle(BindException exception) {
         List<ObjectError> globalErrors = exception.getBindingResult().getGlobalErrors();
         List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
 
         return buildValidationErrors(globalErrors, fieldErrors);
     }
 
-    private ValidationErrorResponse buildValidationErrors(List<ObjectError> globalErrors,
-            List<FieldError> fieldErrors) {
-        ValidationErrorResponse response = new ValidationErrorResponse();
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<String> illegalStateExceptionHandle(IllegalStateException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+    }
+
+    private ErrorResponse buildValidationErrors(List<ObjectError> globalErrors,
+                                                List<FieldError> fieldErrors) {
+        ErrorResponse response = new ErrorResponse();
         globalErrors.forEach(error -> response.addErrors(getErrorMessage(error)));
 
         fieldErrors.forEach(error -> {

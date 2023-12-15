@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ValidationErrorResponse {
+public class ErrorResponse {
     
     List<String> globalErrors = new ArrayList<String>();
     Map<String, String> fieldErrors = new HashMap<String, String>();

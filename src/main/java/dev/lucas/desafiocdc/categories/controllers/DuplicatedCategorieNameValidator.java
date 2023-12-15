@@ -10,6 +10,7 @@ import org.springframework.validation.Validator;
 import java.util.Optional;
 
 @Component
+@Deprecated
 public class DuplicatedCategorieNameValidator implements Validator {
 
     private final CategorieRepository repository;
