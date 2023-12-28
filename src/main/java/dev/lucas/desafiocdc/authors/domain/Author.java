@@ -1,11 +1,10 @@
 package dev.lucas.desafiocdc.authors.domain;
 
 import java.time.Instant;
+import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import dev.lucas.desafiocdc.books.domain.Book;
+import jakarta.persistence.*;
 
 @Entity
 public class Author {
@@ -23,6 +22,17 @@ public class Author {
     private String description;
 
     private Instant instant;
+
+    @OneToMany(mappedBy = "author")
+    private List<Book> bookId;
+
+    private Author(long authorId) {
+        this.id = authorId;
+    }
+
+    public static Author of(long authorId) {
+        return new Author(authorId);
+    }
 
     public String getDescription() {
         return description;
@@ -47,7 +57,7 @@ public class Author {
         this.name = name;
         this.email = email;
         this.description = description;
-        this.instant = Instant.now();
+        this.instant = Instant.now(); //TODO colocar UTF-3
     }
 
     public static Author of (String nome, String email, String descricao) {

@@ -39,11 +39,6 @@ public class ErrorHandler {
         return buildValidationErrors(globalErrors, fieldErrors);
     }
 
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(IllegalStateException.class)
-    public ResponseEntity<String> illegalStateExceptionHandle(IllegalStateException exception) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
-    }
 
     private ErrorResponse buildValidationErrors(List<ObjectError> globalErrors,
                                                 List<FieldError> fieldErrors) {
