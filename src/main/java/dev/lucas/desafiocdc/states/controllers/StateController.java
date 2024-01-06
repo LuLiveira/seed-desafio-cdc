@@ -1,12 +1,16 @@
 package dev.lucas.desafiocdc.states.controllers;
 
-import dev.lucas.desafiocdc.countries.domain.Country;
+import dev.lucas.desafiocdc.states.controllers.request.StateForm;
+import dev.lucas.desafiocdc.states.controllers.response.StateResponse;
 import dev.lucas.desafiocdc.states.domain.State;
-import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,9 +28,10 @@ public class StateController {
 
     @Transactional
     @PostMapping("/new")
-    public void teste() {
-
-        entityManager.persist(new State("São Paulo", new Country(1l)));
-
+    public ResponseEntity<StateResponse> post(@Valid @RequestBody StateForm form) {
+        State state = form.toState(entityManager);
+        entityManager.persist(state);
+        var stateResponse = StateResponse.from(state);
+        return ResponseEntity.status(HttpStatus.CREATED).body(stateResponse);
     }
 }

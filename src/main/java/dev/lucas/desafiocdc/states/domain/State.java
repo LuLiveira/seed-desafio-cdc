@@ -14,8 +14,18 @@ public class State {
     @ManyToOne
     private Country country;
 
+    public String getName() {
+        return name;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
     public State(String name, Country country) {
         this.name = name;
         this.country = country;
+    }
+    public State() {
     }
 }

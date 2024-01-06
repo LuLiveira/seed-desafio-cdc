@@ -1,12 +1,10 @@
-package dev.lucas.desafiocdc.books.controllers;
+package dev.lucas.desafiocdc.books.controllers.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import dev.lucas.desafiocdc.authors.controllers.response.AuthorResponse;
-import dev.lucas.desafiocdc.books.controllers.response.BookResponse;
 import dev.lucas.desafiocdc.books.domain.Book;
 import dev.lucas.desafiocdc.categories.controllers.response.CategorieResponse;
-import dev.lucas.desafiocdc.categories.domain.Categorie;
 
 import java.time.LocalDate;
 import java.util.List;

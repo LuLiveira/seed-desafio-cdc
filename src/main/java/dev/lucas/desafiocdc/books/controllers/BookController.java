@@ -2,6 +2,7 @@ package dev.lucas.desafiocdc.books.controllers;
 
 import dev.lucas.desafiocdc.authors.controllers.AuthorRepository;
 import dev.lucas.desafiocdc.books.controllers.form.BookForm;
+import dev.lucas.desafiocdc.books.controllers.response.BookDetailsResponse;
 import dev.lucas.desafiocdc.books.controllers.response.BookFormResponse;
 import dev.lucas.desafiocdc.books.controllers.response.BookResponse;
 import dev.lucas.desafiocdc.books.domain.Book;

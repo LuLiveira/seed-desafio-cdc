@@ -41,10 +41,11 @@ public record BookForm(
 
     public Book toBook(AuthorRepository authorRepository, CategorieRepository categorieRepository) {
         var categories = caterogieId.stream().map(categorieRepository::findById).map(
-                Optional::orElseThrow
+                Optional::orElseThrow //TODO deve lançar uma expcetion de CategorieNotFoundException
         ).toList();
 
         var author = authorRepository.findById((long) authorId).orElseThrow();
+        //TODO deve lançar uma expcetion de AuthorNotFoundException
 
         var book = Book.of(this.title,
                 this.isbn,

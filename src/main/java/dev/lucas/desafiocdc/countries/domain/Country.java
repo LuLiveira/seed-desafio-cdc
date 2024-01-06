@@ -17,9 +17,20 @@ public class Country {
     @OneToMany(mappedBy = "country")
     private List<State> states;
 
+    public String getName() {
+        return name;
+    }
+
+    public List<State> getStates() {
+        return states;
+    }
+
     public Country(String name) {
         this.name = name;
     }
+    public Country() {
+    }
+
 
     public Country(Long id) {
         this.id = id;
