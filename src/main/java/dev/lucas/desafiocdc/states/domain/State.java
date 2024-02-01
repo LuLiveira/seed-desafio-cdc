@@ -28,4 +28,8 @@ public class State {
     }
     public State() {
     }
+
+    public Long getId() {
+        return id;
+    }
 }
