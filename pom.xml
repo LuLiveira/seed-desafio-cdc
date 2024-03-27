@@ -60,11 +60,10 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<image>
-						<builder>mine/java-cnb-builder</builder>
 <!--						<runImage>mine/java-cnb-builder</runImage>-->
-<!--						<env>-->
-<!--							<BP_JVM_VERSION>${java.version}</BP_JVM_VERSION>-->
-<!--						</env>-->
+						<env>
+							<BP_JVM_VERSION>${java.version}</BP_JVM_VERSION>
+						</env>
 					</image>
 <!--					<docker>-->
 <!--						<publishRegistry>-->
