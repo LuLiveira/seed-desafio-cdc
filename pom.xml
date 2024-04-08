@@ -23,7 +23,12 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -71,6 +76,7 @@
 <!--							<password>secret</password>-->
 <!--						</publishRegistry>-->
 <!--					</docker>-->
+					<imageName>${project.name}</imageName>
 				</configuration>
 				<executions>
 					<execution>

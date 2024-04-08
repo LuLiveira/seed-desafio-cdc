@@ -13,27 +13,11 @@ public record AddressRequest(
         @NotNull @NotEmpty String street,
         @NotNull @NotBlank String adjunct,
         @NotNull @NotBlank String city,
-        @NotNull @NotEmpty @ExistsValue(domainClass =
-                Country.class, fieldName = "id")
-        String countryId,
+        @NotNull @NotEmpty @ExistsValue(domainClass = Country.class, fieldName = "id") String countryId,
         @NotNull @NotEmpty String zipCode,
         @Positive String stateId) {
 
-    public Address toAddress(EntityManager manager) {
-        var country = manager.find(Country.class,
-                Long.valueOf(this.countryId));
-        var states = country.getStates();
-
-        if (states.isEmpty()) {
-            return new Address(street, adjunct, city, country
-            );
-        } else if (stateId != null) {
-            return new Address(street, adjunct, city, country,
-                    states.stream().filter(state -> state.getId().equals(Long.valueOf(stateId))).findFirst().get()
-            );
-        } else {
-            throw new IllegalStateException("stateId " +
-                    "cannot" + " be null or empty");
-        }
+    public Address toAddress() {
+        return new Address(street, adjunct, city, countryId, stateId);
     }
 }

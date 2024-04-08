@@ -1,6 +1,6 @@
 package dev.lucas.desafiocdc.categories.controllers;
 
-import dev.lucas.desafiocdc.categories.controllers.repositories.CategorieRepository;
+import dev.lucas.desafiocdc.categories.repositories.CategorieRepository;
 import dev.lucas.desafiocdc.categories.controllers.request.CategorieRequest;
 import dev.lucas.desafiocdc.categories.domain.Categorie;
 import org.springframework.stereotype.Component;

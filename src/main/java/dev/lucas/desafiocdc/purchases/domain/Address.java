@@ -7,23 +7,15 @@ public class Address {
     private final String street;
     private final String adjunct;
     private final String city;
-    private final Country country;
-    private State state;
+    private final String country;
+    private String state;
 
-    public Address(String street, String adjunct, String city, Country country, State state) {
-
-        this.street = street;
-        this.adjunct = adjunct;
-        this.city = city;
-        this.country = country;
-        this.state = state;
-    }
-
-    public Address(String street, String adjunct, String city, Country country) {
+    public Address(String street, String adjunct, String city, String countryId, String stateId) {
 
         this.street = street;
         this.adjunct = adjunct;
         this.city = city;
-        this.country = country;
+        this.country = countryId;
+        this.state = stateId;
     }
 }

@@ -1,4 +1,4 @@
-package dev.lucas.desafiocdc.categories.controllers.repositories;
+package dev.lucas.desafiocdc.categories.repositories;
 
 import dev.lucas.desafiocdc.categories.domain.Categorie;
 import org.springframework.data.repository.CrudRepository;

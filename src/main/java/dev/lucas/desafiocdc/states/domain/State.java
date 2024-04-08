@@ -6,6 +6,10 @@ import jakarta.persistence.*;
 @Entity
 public class State {
 
+    @Deprecated
+    public State() {
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,10 +30,12 @@ public class State {
         this.name = name;
         this.country = country;
     }
-    public State() {
-    }
 
     public Long getId() {
         return id;
+    }
+
+    public boolean stateBelongTo(Country country) {
+        return this.country.equals(country);
     }
 }

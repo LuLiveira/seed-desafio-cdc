@@ -1,24 +1,31 @@
 package dev.lucas.desafiocdc.purchases.controllers;
 
-import dev.lucas.desafiocdc.purchases.controllers.requests.PersonRequest;
-import dev.lucas.desafiocdc.purchases.domain.Person;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+import dev.lucas.desafiocdc.purchases.controllers.requests.PurchaseRequest;
+import dev.lucas.desafiocdc.purchases.controllers.validators.CountryHasStateValidor;
+import dev.lucas.desafiocdc.purchases.domain.Purchase;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/purchases")
 public class PurchaseController {
 
-    @PersistenceContext
-    EntityManager manager;
+    private final CountryHasStateValidor countryHasStateValidor;
+
+    PurchaseController(CountryHasStateValidor countryHasStateValidor){
+        this.countryHasStateValidor = countryHasStateValidor;
+    }
+
+    @InitBinder
+    public void init(WebDataBinder binder) {
+        binder.addValidators(countryHasStateValidor);
+    }
 
     @PostMapping("/new")
-    public void post(@RequestBody @Valid PersonRequest personRequest){
-        Person person = personRequest.toPerson(manager);
+    public String post(@RequestBody @Valid PurchaseRequest purchaseRequest){
+        Purchase purchase = purchaseRequest.toPurchase();
+
+        return purchaseRequest.toString();
     }
 }

@@ -1,14 +1,14 @@
 package dev.lucas.desafiocdc.purchases.controllers.requests;
 
 import dev.lucas.desafiocdc.configurations.validators.CPForCNPJ;
-import dev.lucas.desafiocdc.purchases.domain.Person;
+import dev.lucas.desafiocdc.purchases.domain.Purchase;
 import jakarta.persistence.EntityManager;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
-public record PersonRequest(
+public record PurchaseRequest(
 
         @Email
         String email,
@@ -22,16 +22,15 @@ public record PersonRequest(
         @NotNull @Valid
         AddressRequest addressRequest,
 
-
         @NotNull @NotEmpty
         String telephone
 
 ) {
 
-    public Person toPerson(EntityManager manager) {
-        var address = addressRequest.toAddress(manager);
+    public Purchase toPurchase() {
+        var address = addressRequest.toAddress();
 
-        return new Person(
+        return new Purchase(
                 email,
                 name,
                 lastName,

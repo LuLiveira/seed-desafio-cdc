@@ -1,14 +1,10 @@
 package dev.lucas.desafiocdc.books.controllers.form;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import dev.lucas.desafiocdc.authors.controllers.AuthorRepository;
-import dev.lucas.desafiocdc.authors.domain.Author;
 import dev.lucas.desafiocdc.books.domain.Book;
-import dev.lucas.desafiocdc.categories.controllers.repositories.CategorieRepository;
-import dev.lucas.desafiocdc.categories.domain.Categorie;
+import dev.lucas.desafiocdc.categories.repositories.CategorieRepository;
 import dev.lucas.desafiocdc.configurations.validators.UniqueValue;
-import jakarta.persistence.EntityManager;
 import jakarta.validation.constraints.*;
 import org.hibernate.validator.constraints.Length;
 
@@ -34,6 +30,7 @@ public record BookForm(
         LocalDate releaseDate,
 
         //TODO criar uma validacao de inteiros para lista
+        //TODO criar uma validacao de categoria
         List<Long> caterogieId,
         @Positive
         int authorId

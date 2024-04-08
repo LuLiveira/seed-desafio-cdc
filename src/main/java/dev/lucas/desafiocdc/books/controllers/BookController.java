@@ -7,7 +7,7 @@ import dev.lucas.desafiocdc.books.controllers.response.BookFormResponse;
 import dev.lucas.desafiocdc.books.controllers.response.BookResponse;
 import dev.lucas.desafiocdc.books.domain.Book;
 import dev.lucas.desafiocdc.books.repositories.BookRepository;
-import dev.lucas.desafiocdc.categories.controllers.repositories.CategorieRepository;
+import dev.lucas.desafiocdc.categories.repositories.CategorieRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
