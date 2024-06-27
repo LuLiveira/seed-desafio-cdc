@@ -6,6 +6,7 @@ import dev.lucas.desafiocdc.authors.controllers.response.AuthorResponse;
 import dev.lucas.desafiocdc.books.domain.Book;
 import dev.lucas.desafiocdc.categories.controllers.response.CategorieResponse;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public record BookFormResponse(Long id,
                                String isbn,
                                String resume,
                                String summary,
-                               double price,
+                               BigDecimal price,
                                int pages,
                                @JsonFormat(shape = STRING, pattern = "dd/MM/yyyy")
                                LocalDate releaseDate,

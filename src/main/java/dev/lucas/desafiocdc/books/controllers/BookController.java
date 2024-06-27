@@ -45,7 +45,7 @@ public class BookController {
         return ResponseEntity.ok(from);
     }
 
-    @GetMapping
+    @GetMapping // TODO criar um cache e utilizar o method HEAD para validar a existencia/validade do cache
     public ResponseEntity<List<BookResponse>> get() {
         var books = repository.findAll();
 

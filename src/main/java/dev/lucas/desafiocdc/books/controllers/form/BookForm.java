@@ -8,6 +8,7 @@ import dev.lucas.desafiocdc.configurations.validators.UniqueValue;
 import jakarta.validation.constraints.*;
 import org.hibernate.validator.constraints.Length;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +21,7 @@ public record BookForm(
         String resume,
         String summary,
         @Min(20) @Positive
-        double price,
+        BigDecimal price,
         @Min(100) @Positive
         int pages,
         @NotNull @NotEmpty @UniqueValue(domainClass = Book.class, fieldName = "isbn") @Positive
@@ -38,7 +39,7 @@ public record BookForm(
 
     public Book toBook(AuthorRepository authorRepository, CategorieRepository categorieRepository) {
         var categories = caterogieId.stream().map(categorieRepository::findById).map(
-                Optional::orElseThrow //TODO deve lançar uma expcetion de CategorieNotFoundException
+                Optional::orElseThrow //TODO deve virar uma validação se a categoria ja foi previamente cadastrada
         ).toList();
 
         var author = authorRepository.findById((long) authorId).orElseThrow();

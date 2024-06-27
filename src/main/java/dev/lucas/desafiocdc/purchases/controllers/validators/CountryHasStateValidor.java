@@ -31,7 +31,7 @@ public class CountryHasStateValidor implements Validator {
                 Long.valueOf(request.addressRequest().countryId()));
 
         if (country.hasStates()) {
-            if (request.addressRequest().stateId().isEmpty()){
+            if (request.addressRequest().stateId() == null || request.addressRequest().stateId().isEmpty()){
                 errors.rejectValue("addressRequest.stateId", null, "stateId cannot be null in this case");
                 return;
             }
@@ -40,7 +40,7 @@ public class CountryHasStateValidor implements Validator {
             if (state == null) {
                 errors.rejectValue("addressRequest.stateId", null, "State is invalid");
 
-            } else if (!state.stateBelongTo(country)) {
+            } else if (!state.belongTo(country)) {
                 errors.rejectValue("addressRequest.stateId", null, "State cannot belong to " + country.getName());
             }
         }

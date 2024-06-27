@@ -35,7 +35,16 @@ public class State {
         return id;
     }
 
-    public boolean stateBelongTo(Country country) {
+    public boolean belongTo(Country country) {
         return this.country.equals(country);
+    }
+
+    @Override
+    public String toString() {
+        return "State{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", country=" + country +
+                '}';
     }
 }

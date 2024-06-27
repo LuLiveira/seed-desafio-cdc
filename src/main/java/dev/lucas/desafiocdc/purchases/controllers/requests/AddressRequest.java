@@ -3,6 +3,7 @@ package dev.lucas.desafiocdc.purchases.controllers.requests;
 import dev.lucas.desafiocdc.configurations.validators.ExistsValue;
 import dev.lucas.desafiocdc.countries.domain.Country;
 import dev.lucas.desafiocdc.purchases.domain.Address;
+import dev.lucas.desafiocdc.states.domain.State;
 import jakarta.persistence.EntityManager;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -17,7 +18,7 @@ public record AddressRequest(
         @NotNull @NotEmpty String zipCode,
         @Positive String stateId) {
 
-    public Address toAddress() {
-        return new Address(street, adjunct, city, countryId, stateId);
+    public Address toAddress(Country country) {
+        return new Address(street, adjunct, city, country);
     }
 }

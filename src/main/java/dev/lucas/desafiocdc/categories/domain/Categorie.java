@@ -13,10 +13,8 @@ public class Categorie {
     private Long id;
     private String name;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "categorie")
     private List<Book> bookId;
-
-
 
     private Categorie(String name) {
         this.name = name;
