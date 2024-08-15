@@ -42,4 +42,9 @@ public class Coupon {
     public LocalDate getExpiration() {
         return expiration;
     }
+
+    public boolean isValid() {
+        var now = LocalDate.now();
+        return expiration.isAfter(now) || expiration.isEqual(now);
+    }
 }

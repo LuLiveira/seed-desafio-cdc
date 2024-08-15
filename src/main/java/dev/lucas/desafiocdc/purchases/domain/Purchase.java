@@ -1,5 +1,6 @@
 package dev.lucas.desafiocdc.purchases.domain;
 
+import dev.lucas.desafiocdc.coupons.domain.Coupon;
 import jakarta.persistence.*;
 
 import java.util.function.Function;
@@ -22,6 +23,9 @@ public class Purchase {
     @OneToOne(mappedBy = "purchase", cascade = CascadeType.PERSIST)
     private final Order order;
 
+    @Embedded
+    private ApplyedCoupon applyedCoupon;
+
     public Purchase(String email, String name, String lastName, String document, String telephone, Address address, Function<Purchase, Order> orderBuild) {
 
         this.email = email;
@@ -43,6 +47,11 @@ public class Purchase {
                 ", telephone='" + telephone + '\'' +
                 ", address=" + address +
                 ", order=" + order +
+                ", coupon=" + applyedCoupon +
                 '}';
+    }
+
+    public void applyCoupon(Coupon coupon) {
+        this.applyedCoupon = new ApplyedCoupon(coupon);
     }
 }

@@ -2,6 +2,8 @@ package dev.lucas.desafiocdc.purchases.controllers.requests;
 
 import dev.lucas.desafiocdc.configurations.validators.CPForCNPJ;
 import dev.lucas.desafiocdc.countries.domain.Country;
+import dev.lucas.desafiocdc.coupons.domain.Coupon;
+import dev.lucas.desafiocdc.coupons.repositories.CouponRepository;
 import dev.lucas.desafiocdc.purchases.domain.Order;
 import dev.lucas.desafiocdc.purchases.domain.Purchase;
 import dev.lucas.desafiocdc.states.domain.State;
@@ -10,11 +12,10 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
-import java.util.Set;
+import java.util.Optional;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public record PurchaseRequest(
 
@@ -34,10 +35,13 @@ public record PurchaseRequest(
         String telephone,
 
         @Valid @NotNull
-        OrderRequest orderRequest
+        OrderRequest orderRequest,
+
+        //@ExistsValue(domainClass = Coupon.class, fieldName = "code") Não da pra usar por que ai vai obrigar a compra ter um coupon.
+        String couponCode
 ) {
 
-    public Purchase toPurchase(EntityManager manager) {
+    public Purchase toPurchase(EntityManager manager, CouponRepository couponRepository) {
         var country = manager.find(Country.class, addressRequest.countryId());
         var address = addressRequest.toAddress(country);
 
@@ -48,7 +52,6 @@ public record PurchaseRequest(
 
         Function<Purchase, Order> orderBuild = orderRequest.toModel(manager);
 
-
         var purchase = new Purchase(
                 email,
                 name,
@@ -57,8 +60,16 @@ public record PurchaseRequest(
                 telephone,
                 address, orderBuild);
 
+        if (StringUtils.hasText(couponCode)) {
+            Optional<Coupon> coupon = couponRepository.findByCode(couponCode);
+            coupon.ifPresent(purchase::applyCoupon);
+        }
 
         return purchase;
+    }
+
+    public Optional<String> getCouponCode() {
+        return Optional.ofNullable(couponCode);
     }
 
     @Override
