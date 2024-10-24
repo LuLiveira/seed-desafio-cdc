@@ -3,7 +3,6 @@ package dev.lucas.desafiocdc.purchases.domain;
 import dev.lucas.desafiocdc.books.domain.Book;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -13,9 +12,9 @@ public class OrderItem {
 
 
     @ManyToOne
-    private final Book book;
-    private final int quantity;
-    private final BigDecimal actualPrice;
+    private Book book;
+    private int quantity;
+    private BigDecimal actualPrice;
 
     public OrderItem(Book book, int quantity) {
         this.book = book;
@@ -23,9 +22,20 @@ public class OrderItem {
         this.actualPrice = book.getPrice();
     }
 
+    public OrderItem() {
+    }
+
     public BigDecimal getTotal() {
         return actualPrice.multiply(new BigDecimal(quantity));
 
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public Book getBook() {
+        return book;
     }
 
     @Override

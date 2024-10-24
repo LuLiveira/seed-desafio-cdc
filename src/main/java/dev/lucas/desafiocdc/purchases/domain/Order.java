@@ -15,20 +15,35 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    private final Purchase purchase;
+    @OneToOne(fetch = FetchType.LAZY) //LAZY
+    private Purchase purchase;
 
     @ElementCollection
-    private final Set<OrderItem> orderItems;
+    private Set<OrderItem> orderItems;
 
     public Order(Purchase purchase, Set<OrderItem> orderItems) {
         this.purchase = purchase;
         this.orderItems = orderItems;
     }
 
+    public Order() {
+    }
+
     public boolean isValidTotal(@NotNull @Positive @Min(1) BigDecimal total) {
         var totalOrder = orderItems.stream().map(OrderItem::getTotal).reduce(BigDecimal.ZERO, (actualValue, nextValue) -> actualValue.add(nextValue));
         return totalOrder.doubleValue() == totalOrder.doubleValue();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Purchase getPurchase() {
+        return purchase;
+    }
+
+    public Set<OrderItem> getOrderItems() {
+        return orderItems;
     }
 
     @Override

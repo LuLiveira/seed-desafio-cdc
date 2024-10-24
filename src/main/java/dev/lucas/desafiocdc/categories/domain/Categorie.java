@@ -44,4 +44,12 @@ public class Categorie {
     public static Categorie of(long id) {
         return new Categorie(id);
     }
+
+    @Override
+    public String toString() {
+        return "Categorie{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

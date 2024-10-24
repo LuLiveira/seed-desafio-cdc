@@ -11,17 +11,17 @@ public class Purchase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private final String email;
-    private final String name;
-    private final String lastName;
-    private final String document;
-    private final String telephone;
+    private String email;
+    private String name;
+    private String lastName;
+    private String document;
+    private String telephone;
 
-    @ManyToOne
-    private final Address address;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private Address address;
 
     @OneToOne(mappedBy = "purchase", cascade = CascadeType.PERSIST)
-    private final Order order;
+    private Order order;
 
     @Embedded
     private ApplyedCoupon applyedCoupon;
@@ -35,6 +35,9 @@ public class Purchase {
         this.telephone = telephone;
         this.address = address;
         this.order = orderBuild.apply(this);
+    }
+
+    public Purchase() {
     }
 
     @Override
@@ -53,5 +56,41 @@ public class Purchase {
 
     public void applyCoupon(Coupon coupon) {
         this.applyedCoupon = new ApplyedCoupon(coupon);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getDocument() {
+        return document;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public ApplyedCoupon getApplyedCoupon() {
+        return applyedCoupon;
     }
 }

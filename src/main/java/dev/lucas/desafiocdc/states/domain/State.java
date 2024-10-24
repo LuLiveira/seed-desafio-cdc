@@ -15,7 +15,7 @@ public class State {
     private Long id;
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Country country;
 
     public String getName() {

@@ -63,4 +63,14 @@ public class Author {
     public static Author of (String nome, String email, String descricao) {
         return new Author(nome, email, descricao);
     }
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

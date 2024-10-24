@@ -19,6 +19,6 @@ public record AddressRequest(
         @Positive String stateId) {
 
     public Address toAddress(Country country) {
-        return new Address(street, adjunct, city, country);
+        return new Address(street, adjunct, city, country, zipCode);
     }
 }
